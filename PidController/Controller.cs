@@ -49,7 +49,7 @@ namespace Pid
             return LimitOutput((P * Kp) + (I * Ki) + (D * Kd));
         }
 
-        public double LimitOutput(double rawValue)
+        private double LimitOutput(double rawValue)
         {
             if (rawValue < OutputMin)
             {

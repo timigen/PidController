@@ -44,6 +44,21 @@ namespace PidControllerTests
         }
 
         [Test]
+        public void controlFunctionSatisfiedNoCorrection()
+        {
+            double targetValue = 1000;
+            double[] values = new double[] { targetValue, targetValue };
+            var c = GetController(targetValue);
+
+            foreach (double mV in values)
+            {
+                var outp = c.GetCorrection(mV, 1000);
+
+                Assert.Zero(outp);
+            }
+        }
+
+        [Test]
         public void AscendStopAtTarget()
         {
             double targetValue = 1000;
