@@ -37,19 +37,19 @@ namespace Pid
             return LimitOutput((P * Config.Kp) + (I * Config.Ki) + (D * Config.Kd));
         }
 
-        private double LimitOutput(double rawValue)
+        private double LimitOutput(double output)
         {
-            if (rawValue < Config.Min)
+            if (output < Config.Min)
             {
                 return Config.Min;
             }
 
-            if (rawValue > Config.Max)
+            if (output > Config.Max)
             {
                 return Config.Max;
             }
 
-            return rawValue;
+            return output;
         }
     }
 }
