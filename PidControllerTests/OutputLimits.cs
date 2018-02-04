@@ -19,7 +19,7 @@ namespace PidControllerTests
 
             double correction = c.GetCorrection(10000000,1000);
 
-            Assert.LessOrEqual(correction, min);
+            Assert.GreaterOrEqual(correction, min);
         }
 
         [Test]
