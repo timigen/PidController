@@ -10,13 +10,32 @@ namespace PidControllerTests
         [Test]
         public void CurrentLtTargetCorrectionIsPositive()
         {
-            double targetValue = 500000;
             double currentValue = 0;
+            double targetValue = 100000;
 
             var c = GetController(targetValue);
-            double correctionValue = c.GetCorrection(currentValue, 1000);
 
+
+            double correctionValue = c.GetCorrection(currentValue, 1000);
             Assert.Positive(correctionValue);
+        }
+
+        [Test]
+        public void CurrentLtTargetCorrectionIsPositiveLoop()
+        {
+            double currentValue = 0;
+            double targetValue = 100000;
+
+            var c = GetController(targetValue);
+
+            while (currentValue != targetValue)
+            {
+                double correctionValue = c.GetCorrection(currentValue, 1000);
+                Assert.Positive(correctionValue);
+                currentValue += correctionValue;
+            }
+
+
         }
 
         [Test]

@@ -8,32 +8,20 @@ namespace Pid
         private double I;
         private double D;
 
-        private double Kp;
-        private double Ki;
-        private double Kd;
-
         private double Difference;
         private double PreviousDifference;
-        private double Setpoint;
 
-        private double OutputMin;
-        private double OutputMax;
+        private Config Config;
 
         public Controller(Config config)
         {
             P = I = D = 0;
-            Kp = config.Kp;
-            Ki = config.Ki;
-            Kd = config.Kd;
-            Setpoint = config.Setpoint;
-
-            OutputMin = config.Min;
-            OutputMax = config.Max;
+            Config = config;
         }
 
         public double GetCorrection(double value, long dX)
         {
-            Difference = Setpoint - value;
+            Difference = Config.Setpoint - value;
 
             if (Difference == 0)
             {
@@ -46,19 +34,19 @@ namespace Pid
 
             PreviousDifference = Difference;
 
-            return LimitOutput((P * Kp) + (I * Ki) + (D * Kd));
+            return LimitOutput((P * Config.Kp) + (I * Config.Ki) + (D * Config.Kd));
         }
 
         private double LimitOutput(double rawValue)
         {
-            if (rawValue < OutputMin)
+            if (rawValue < Config.Min)
             {
-                return OutputMin;
+                return Config.Min;
             }
 
-            if (rawValue > OutputMax)
+            if (rawValue > Config.Max)
             {
-                return OutputMax;
+                return Config.Max;
             }
 
             return rawValue;
