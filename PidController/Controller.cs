@@ -21,7 +21,6 @@
             Ki = kI;
             Kd = kD;
             Setpoint = setpoint;
-
         }
 
         public double SetProcessValue(double value, long dX)
