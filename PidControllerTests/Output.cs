@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Pid;
+using PidController;
 
 namespace PidControllerTests
 {
@@ -88,11 +89,9 @@ namespace PidControllerTests
 
         private Controller GetController(double targetValue)
         {
-            double p = 0.001;
-            double i = 0.00005;
-            double d = 0.0001;
+            var config = new Config(targetValue, -1000, 1000);
 
-            return new Controller(p, i, d, targetValue);
+            return new Controller(config);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Pid
+﻿using PidController;
+
+namespace Pid
 {
     public class Controller
     {
@@ -14,13 +16,13 @@
         private double PreviousDifference;
         private double Setpoint;
 
-        public Controller(double kP, double kI, double kD, double setpoint)
+        public Controller(Config config)
         {
             P = I = D = 0;
-            Kp = kP;
-            Ki = kI;
-            Kd = kD;
-            Setpoint = setpoint;
+            Kp = config.Kp;
+            Ki = config.Ki;
+            Kd = config.Kd;
+            Setpoint = config.Setpoint;
         }
 
         public double SetProcessValue(double value, long dX)
