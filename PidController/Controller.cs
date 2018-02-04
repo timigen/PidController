@@ -46,7 +46,22 @@ namespace Pid
 
             PreviousDifference = Difference;
 
-            return (P * Kp) + (I * Ki) + (D * Kd);
+            return LimitOutput((P * Kp) + (I * Ki) + (D * Kd));
+        }
+
+        public double LimitOutput(double rawValue)
+        {
+            if (rawValue < OutputMin)
+            {
+                return OutputMin;
+            }
+
+            if (rawValue > OutputMax)
+            {
+                return OutputMax;
+            }
+
+            return rawValue;
         }
     }
 }
