@@ -37,6 +37,8 @@
             I += Difference * dX;
             D = (Difference - PreviousDifference) / dX;
 
+            PreviousDifference = Difference;
+
             return (P * Kp) + (I * Ki) + (D * Kd);
         }
     }
