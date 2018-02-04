@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PidController
+namespace Pid
 {
     public class Config
     {

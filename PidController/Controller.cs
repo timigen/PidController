@@ -1,6 +1,4 @@
-﻿using PidController;
-
-namespace Pid
+﻿namespace Pid
 {
     public class Controller : IController
     {

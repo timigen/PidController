@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Pid;
-using PidController;
 
 namespace PidControllerTests
 {
@@ -75,50 +74,6 @@ namespace PidControllerTests
 
                 Assert.Zero(outp);
             }
-        }
-
-        [Test]
-        public void AscendStopAtTarget()
-        {
-            double targetValue = 1000;
-            double[] values = new double[] { 0, 10, 700, 900, targetValue };
-            var c = GetController(targetValue);
-
-            foreach (double mV in values)
-            {
-                var outp = c.GetCorrection(mV, 1000);
-
-                if (mV == targetValue)
-                {
-                    Assert.Zero(outp);
-                    break;
-                }
-
-                Assert.Positive(outp);
-            }
-
-        }
-
-        [Test]
-        public void DescendStopAtTarget()
-        {
-            double targetValue = 0;
-            double[] values = new double[] { 1000, 900, 700, 250, targetValue };
-            var c = GetController(targetValue);
-
-            foreach (double mV in values)
-            {
-                var outp = c.GetCorrection(mV, 1000);
-
-                if (mV == targetValue)
-                {
-                    Assert.Zero(outp);
-                    break;
-                }
-
-                Assert.Negative(outp);
-            }
-
         }
 
         private IController GetController(double targetValue)

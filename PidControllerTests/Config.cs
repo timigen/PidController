@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using PidController;
+using Pid;
 using System;
 
 namespace PidControllerTests

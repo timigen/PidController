@@ -1,4 +1,4 @@
-﻿namespace PidController
+﻿namespace Pid
 {
     public interface IController
     {

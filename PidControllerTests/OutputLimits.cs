@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 
 using Pid;
-using PidController;
 
 namespace PidControllerTests
 {
