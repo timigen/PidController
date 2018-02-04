@@ -102,7 +102,7 @@ namespace PidControllerTests
 
         }
 
-        private Controller GetController(double targetValue)
+        private IController GetController(double targetValue)
         {
             var config = new Config(targetValue, -1000, 1000);
 

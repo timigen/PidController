@@ -12,18 +12,18 @@ namespace PidControllerTests
         private double max = 5;
 
         [Test]
-        public void OutputMinimumEnfroced()
+        public void OutputMinimumEnforced()
         {
             var targetValue = -90000000;
             var c = GetController(targetValue);
 
-            double correction = c.GetCorrection(10000000,1000);
+            double correction = c.GetCorrection(10000000, 1000);
 
             Assert.GreaterOrEqual(correction, min);
         }
 
         [Test]
-        public void OutputMaximumEnfroced()
+        public void OutputMaximumEnforced()
         {
             var targetValue = 90000000;
             var c = GetController(targetValue);
@@ -33,7 +33,7 @@ namespace PidControllerTests
             Assert.LessOrEqual(correction, max);
         }
 
-        private Controller GetController(double targetValue)
+        private IController GetController(double targetValue)
         {
             var config = new Config(targetValue, min, max);
 

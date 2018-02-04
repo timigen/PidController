@@ -2,7 +2,7 @@
 
 namespace Pid
 {
-    public class Controller
+    public class Controller : IController
     {
         private double P;
         private double I;
