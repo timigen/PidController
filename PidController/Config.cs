@@ -1,4 +1,6 @@
-﻿namespace PidController
+﻿using System;
+
+namespace PidController
 {
     public class Config
     {
@@ -13,6 +15,8 @@
 
         public Config(double setpoint, double minOutput, double maxOutput)
         {
+            if (minOutput >= maxOutput) throw new Exception("invalid configuration!");
+
             Kp = 0.001;
             Ki = 0.00005;
             Kd = 0.0001;

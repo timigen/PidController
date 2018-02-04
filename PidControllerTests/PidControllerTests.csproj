@@ -48,6 +48,7 @@
     <Compile Include="OutputDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OutputLimits.cs" />
+    <Compile Include="Config.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
