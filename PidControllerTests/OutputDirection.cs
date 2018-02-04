@@ -5,7 +5,7 @@ using PidController;
 namespace PidControllerTests
 {
     [TestFixture]
-    public class Output
+    public class OutputDirection
     {
         [Test]
         public void CurrentLtTargetCorrectionIsPositive()
@@ -14,7 +14,7 @@ namespace PidControllerTests
             double currentValue = 0;
 
             var c = GetController(targetValue);
-            double correctionValue = c.SetProcessValue(currentValue, 1000);
+            double correctionValue = c.GetCorrection(currentValue, 1000);
 
             Assert.Positive(correctionValue);
         }
@@ -26,7 +26,7 @@ namespace PidControllerTests
             double currentValue = 500000;
 
             var c = GetController(targetValue);
-            double correctionValue = c.SetProcessValue(currentValue, 1000);
+            double correctionValue = c.GetCorrection(currentValue, 1000);
 
             Assert.Zero(correctionValue);
         }
@@ -38,13 +38,13 @@ namespace PidControllerTests
             double currentValue = 100000;
 
             var c = GetController(targetValue);
-            double correctionValue = c.SetProcessValue(currentValue, 1000);
+            double correctionValue = c.GetCorrection(currentValue, 1000);
 
             Assert.Negative(correctionValue);
         }
 
         [Test]
-        public void Ascend()
+        public void AscendStopAtTarget()
         {
             double targetValue = 1000;
             double[] values = new double[] { 0, 10, 700, 900, targetValue };
@@ -52,7 +52,7 @@ namespace PidControllerTests
 
             foreach (double mV in values)
             {
-                var outp = c.SetProcessValue(mV, 1000);
+                var outp = c.GetCorrection(mV, 1000);
 
                 if (mV == targetValue)
                 {
@@ -66,7 +66,7 @@ namespace PidControllerTests
         }
 
         [Test]
-        public void Descend()
+        public void DescendStopAtTarget()
         {
             double targetValue = 0;
             double[] values = new double[] { 1000, 900, 700, 250, targetValue };
@@ -74,7 +74,7 @@ namespace PidControllerTests
 
             foreach (double mV in values)
             {
-                var outp = c.SetProcessValue(mV, 1000);
+                var outp = c.GetCorrection(mV, 1000);
 
                 if (mV == targetValue)
                 {

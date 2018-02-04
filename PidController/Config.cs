@@ -8,8 +8,8 @@
         public double Ki { get; }
         public double Kd { get; }
 
-        private double Min;
-        private double Max;
+        public double Min { get; }
+        public  double Max { get; }
 
         public Config(double setpoint, double minOutput, double maxOutput)
         {

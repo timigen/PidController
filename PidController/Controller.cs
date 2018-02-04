@@ -16,6 +16,9 @@ namespace Pid
         private double PreviousDifference;
         private double Setpoint;
 
+        private double OutputMin;
+        private double OutputMax;
+
         public Controller(Config config)
         {
             P = I = D = 0;
@@ -23,9 +26,12 @@ namespace Pid
             Ki = config.Ki;
             Kd = config.Kd;
             Setpoint = config.Setpoint;
+
+            OutputMin = config.Min;
+            OutputMax = config.Max;
         }
 
-        public double SetProcessValue(double value, long dX)
+        public double GetCorrection(double value, long dX)
         {
             Difference = Setpoint - value;
 
