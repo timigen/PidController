@@ -1,78 +1,38 @@
 ﻿using NUnit.Framework;
 using Pid;
+using System;
+using System.Collections.Generic;
 
 namespace PidControllerTests
 {
+
     [TestFixture]
-    public class OutputTarget
+    public class JuryRig
     {
         [Test]
-        public void FindSuccessfully()
+        public void TestMethod1()
         {
             double measuredValue = 0;
-            double targetValue = 1003;
-            int count = 0;
+            double targetValue = 107;
+            uint count = 0;
 
             var c = GetController(targetValue);
-
+            
             while (targetValue != measuredValue)
             {
-                var outp = c.GetCorrection(measuredValue, 1000);
-                measuredValue += outp;
+                var correction = c.GetCorrection(measuredValue, 1000);
+                measuredValue += correction;
                 count++;
             }
-
             Assert.True(true);
-        }
-
-        [Test]
-        public void AscendStopAtTarget()
-        {
-            double targetValue = 1000;
-            double[] values = new double[] { 0, 10, 700, 900, targetValue };
-            var c = GetController(targetValue);
-
-            foreach (double mV in values)
-            {
-                var outp = c.GetCorrection(mV, 1000);
-
-                if (mV == targetValue)
-                {
-                    Assert.Zero(outp);
-                    break;
-                }
-
-                Assert.Positive(outp);
-            }
-        }
-
-        [Test]
-        public void DescendStopAtTarget()
-        {
-            double targetValue = 0;
-            double[] values = new double[] { 1000, 900, 700, 250, targetValue };
-            var c = GetController(targetValue);
-
-            foreach (double mV in values)
-            {
-                var outp = c.GetCorrection(mV, 1000);
-
-                if (mV == targetValue)
-                {
-                    Assert.Zero(outp);
-                    break;
-                }
-
-                Assert.Negative(outp);
-            }
-
         }
 
         private IController GetController(double targetValue)
         {
-            var config = new Config(targetValue, -1000, 1000);
+            var config = new Config(targetValue, -10, 10);
 
             return new Controller(config);
         }
+
     }
 }

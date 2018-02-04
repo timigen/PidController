@@ -32,11 +32,20 @@
 
             PreviousDifference = Difference;
 
-            return LimitOutput((P * Config.Kp) + (I * Config.Ki) + (D * Config.Kd));
+            double output = LimitOutput((P * Config.Kp) + (I * Config.Ki) + (D * Config.Kd));
+
+            if (Difference < 0 && output > 0) { return output * -1; }
+
+            return output;
         }
 
         private double LimitOutput(double output)
         {
+            if (Difference < Config.Max && Difference > Config.Min)
+            {
+                return Difference;
+            }
+
             if (output < Config.Min)
             {
                 return Config.Min;
