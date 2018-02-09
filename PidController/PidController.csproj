@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="StyleCopPlus.MSBuild" Version="4.7.49.5" />
+  </ItemGroup>
+
 </Project>

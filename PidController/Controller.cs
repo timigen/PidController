@@ -13,26 +13,26 @@
 
         public Controller(Config config)
         {
-            P = I = D = 0;
+            this.P = this.I = this.D = 0;
             Config = config;
         }
 
         public double GetCorrection(double value, long dX)
         {
-            Offset = Config.Setpoint - value;
+            Offset = this.Config.Setpoint - value;
 
             if (Offset == 0)
             {
                 return 0;
             }
 
-            P = Offset;
-            I += Offset * dX;
-            D = (Offset - PreviousOffset) / dX;
+            this.P = Offset;
+            this.I += Offset * dX;
+            this.D = (Offset - PreviousOffset) / dX;
 
             PreviousOffset = Offset;
 
-            double output = LimitOutput((P * Config.Kp) + (I * Config.Ki) + (D * Config.Kd));
+            double output = LimitOutput((this.P * this.Config.Kp) + (this.I * this.Config.Ki) + (this.D * this.Config.Kd));
 
             if (Offset < 0 && output > 0) { return output * -1; }
 
@@ -41,19 +41,22 @@
 
         private double LimitOutput(double output)
         {
-            if (Offset < Config.Max && Offset > Config.Min)
+            var min = Config.Min;
+            var max = Config.Max;
+
+            if (Offset < max && Offset > Config.Min)
             {
                 return Offset;
             }
 
-            if (output < Config.Min)
+            if (output < min)
             {
-                return Config.Min;
+                return min;
             }
 
-            if (output > Config.Max)
+            if (output > max)
             {
-                return Config.Max;
+                return max;
             }
 
             return output;
