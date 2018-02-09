@@ -14,7 +14,6 @@ namespace PidControllerTests
 
             var c = GetController(targetValue);
 
-
             double correctionValue = c.GetCorrection(currentValue, 1000);
             Assert.Positive(correctionValue);
         }

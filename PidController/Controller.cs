@@ -6,8 +6,8 @@
         private double I;
         private double D;
 
-        private double Difference;
-        private double PreviousDifference;
+        private double Offset;
+        private double PreviousOffset;
 
         private Config Config;
 
@@ -19,31 +19,31 @@
 
         public double GetCorrection(double value, long dX)
         {
-            Difference = Config.Setpoint - value;
+            Offset = Config.Setpoint - value;
 
-            if (Difference == 0)
+            if (Offset == 0)
             {
                 return 0;
             }
 
-            P = Difference;
-            I += Difference * dX;
-            D = (Difference - PreviousDifference) / dX;
+            P = Offset;
+            I += Offset * dX;
+            D = (Offset - PreviousOffset) / dX;
 
-            PreviousDifference = Difference;
+            PreviousOffset = Offset;
 
             double output = LimitOutput((P * Config.Kp) + (I * Config.Ki) + (D * Config.Kd));
 
-            if (Difference < 0 && output > 0) { return output * -1; }
+            if (Offset < 0 && output > 0) { return output * -1; }
 
             return output;
         }
 
         private double LimitOutput(double output)
         {
-            if (Difference < Config.Max && Difference > Config.Min)
+            if (Offset < Config.Max && Offset > Config.Min)
             {
-                return Difference;
+                return Offset;
             }
 
             if (output < Config.Min)
